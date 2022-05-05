@@ -62,12 +62,12 @@ developing your own process.
 
 - Add a new toy when the toy form is submitted
 
-  - How I debugged:
+  - How I debugged: 500 error meant checking server-side. Error of uninitialized constant "Toys" was found. Changed Toys to create Toy and error was fixed.
 
 - Update the number of likes for a toy
 
-  - How I debugged:
+  - How I debugged: Checked update method in controller and found that we were not returning any json. Added like to render json and like button functioned after that.
 
 - Donate a toy to Goodwill (and delete it from our database)
 
-  - How I debugged:
+  - How I debugged: No method to delete was included in routes. Added destroy to list of accepted routes and fixed the problem.

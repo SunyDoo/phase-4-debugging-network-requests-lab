@@ -1,5 +1,5 @@
 class ToysController < ApplicationController
-  wrap_parameters format: []
+  wrap_parameters false
 
   def index
     toys = Toy.all
@@ -7,13 +7,16 @@ class ToysController < ApplicationController
   end
 
   def create
-    toy = Toys.create(toy_params)
+    toy = Toy.create!(toy_params)
     render json: toy, status: :created
+  rescue ActiveRecord::RecordInvalid => invalid
+    render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
 
   def update
     toy = Toy.find_by(id: params[:id])
     toy.update(toy_params)
+    render json: toy, status: :accepted
   end
 
   def destroy
@@ -22,10 +25,11 @@ class ToysController < ApplicationController
     head :no_content
   end
 
+
   private
   
   def toy_params
-    params.permit(:name, :image, :likes)
+    params.permit(:name, :image, :likes, :id)
   end
 
 end
